@@ -3,7 +3,6 @@ package com.example.bit_14
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.bit_14.databinding.ActivityCoinBinding
-import com.example.bit_14.databinding.ActivityMainBinding
 
 class CoinActivity : AppCompatActivity() {
     lateinit var binding: ActivityCoinBinding
