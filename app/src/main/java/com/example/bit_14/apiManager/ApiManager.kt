@@ -1,6 +1,7 @@
 package com.example.bit_14.apiManager
 
 import android.os.Message
+import com.example.bit_14.apiManager.model.CoinsData
 import com.example.bit_14.apiManager.model.NewsData
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,6 +47,23 @@ class ApiManager {
 
             }
         })
+    }
+
+
+    fun getCoinsList( apiCallback: ApiCallback<List<CoinsData.Data>> ) {
+
+        apiService.getTopCoins().enqueue( object :Callback<CoinsData> {
+            override fun onResponse(call: Call<CoinsData>, response: Response<CoinsData>) {
+                val data = response.body()!!
+                apiCallback.onSuccess( data.data )
+            }
+
+            override fun onFailure(call: Call<CoinsData>, t: Throwable) {
+                apiCallback.onError(t.message!!)
+            }
+
+        } )
+
     }
 
 

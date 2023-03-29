@@ -5,12 +5,16 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bit_14.apiManager.ApiManager
+import com.example.bit_14.apiManager.model.CoinsData
 import com.example.bit_14.databinding.ActivityMarketBinding
+import com.example.bit_14.features.marketActivity.MarketAdapter
 
-class MarketActivity : AppCompatActivity() {
+class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
    lateinit var binding: ActivityMarketBinding
     lateinit var dataNews: ArrayList<Pair<String, String>>
+    lateinit var adapter :MarketAdapter
     val apiManager = ApiManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityMarketBinding.inflate(layoutInflater)
@@ -23,8 +27,8 @@ class MarketActivity : AppCompatActivity() {
     }
 
     private fun initUi(){
-
         getNewsFromApi()
+        getTopCoinsFromApi()
 
     }
 
@@ -57,5 +61,37 @@ class MarketActivity : AppCompatActivity() {
             refreshNews()
         }
 
+    }
+
+
+    private fun getTopCoinsFromApi() {
+
+        apiManager.getCoinsList(object : ApiManager.ApiCallback<List<CoinsData.Data>> {
+            override fun onSuccess(data: List<CoinsData.Data>) {
+
+                showDataInRecycler(data)
+
+            }
+
+            override fun onError(errorMessage: String) {
+                Toast.makeText(this@MarketActivity, "error => " + errorMessage, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
+
+    }
+
+    private fun showDataInRecycler(data: List<CoinsData.Data>) {
+
+        adapter = MarketAdapter(ArrayList(data), this)
+        binding.layoutWatchlist.recyclerMain.adapter = adapter
+        binding.layoutWatchlist.recyclerMain.layoutManager = LinearLayoutManager(this)
+
+    }
+
+    override fun onCoinItemClicked(dataCoin: CoinsData.Data) {
+        val intent = Intent(this, CoinActivity::class.java)
+        intent.putExtra("dataToSend", dataCoin)
+        startActivity(intent)
     }
 }
