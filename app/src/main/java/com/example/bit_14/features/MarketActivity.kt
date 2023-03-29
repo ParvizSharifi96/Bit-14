@@ -1,4 +1,4 @@
-package com.example.bit_14
+package com.example.bit_14.features
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
