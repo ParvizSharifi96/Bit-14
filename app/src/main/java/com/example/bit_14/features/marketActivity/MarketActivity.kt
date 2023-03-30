@@ -24,7 +24,6 @@ class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
         setContentView(binding.root)
         binding.layoutToolbar.toolbar.title = "Bit-14"
 
-        initUi()
 
         binding.layoutWatchlist.btnShowMore.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.livecoinwatch.com/"))
@@ -40,6 +39,11 @@ class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
 
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initUi()
     }
 
     private fun initUi(){

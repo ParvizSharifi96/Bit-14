@@ -111,11 +111,6 @@ data class CoinsData(
                 @SerializedName("CHANGEPCTHOUR")
                 val cHANGEPCTHOUR: String,
 
-
-                @SerializedName("CONVERSIONSYMBOL")
-                val cONVERSIONSYMBOL: String,
-                @SerializedName("CONVERSIONTYPE")
-                val cONVERSIONTYPE: String,
                 @SerializedName("FROMSYMBOL")
                 val fROMSYMBOL: String,
                 @SerializedName("HIGH24HOUR")
@@ -208,12 +203,6 @@ data class CoinsData(
                 @SerializedName("CHANGEPCTHOUR")
                 val cHANGEPCTHOUR: Double,
 
-
-                val cONVERSIONSYMBOL: String,
-                @SerializedName("CONVERSIONTYPE")
-                val cONVERSIONTYPE: String,
-                @SerializedName("FLAGS")
-                val fLAGS: String,
                 @SerializedName("FROMSYMBOL")
                 val fROMSYMBOL: String,
                 @SerializedName("HIGH24HOUR")
