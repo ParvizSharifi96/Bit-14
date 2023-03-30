@@ -10,12 +10,13 @@ import com.example.bit_14.databinding.ActivityCoinBinding
 @Suppress("DEPRECATION")
 class CoinActivity : AppCompatActivity() {
     lateinit var binding: ActivityCoinBinding
+    lateinit var dataThisCoin: CoinsData.Data
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityCoinBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        dataThisCoin = intent.getParcelableExtra<CoinsData.Data>("dataToSend")!!
         initUi()
 
     }
@@ -36,7 +37,7 @@ class CoinActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initStatisticsUi() {
-       val dataThisCoin = intent.getParcelableExtra<CoinsData.Data>("dataToSend")!!
+
         binding.layoutStatistics.tvOpenAmount.text =  dataThisCoin.dISPLAY.uSD.oPEN24HOUR
         binding.layoutStatistics.tvTodaysHighAmount.text =dataThisCoin.dISPLAY.uSD.hIGH24HOUR
         binding.layoutStatistics.tvTodayLowAmount.text = dataThisCoin.dISPLAY.uSD.lOW24HOUR
