@@ -9,15 +9,19 @@ import android.os.Looper
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bit_14.apiManager.ApiManager
+import com.example.bit_14.apiManager.model.CoinAboutData
+import com.example.bit_14.apiManager.model.CoinAboutItem
 import com.example.bit_14.apiManager.model.CoinsData
 import com.example.bit_14.databinding.ActivityMarketBinding
 import com.example.bit_14.features.CoinActivity
+import com.google.gson.Gson
 
 class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
    lateinit var binding: ActivityMarketBinding
     lateinit var dataNews: ArrayList<Pair<String, String>>
     lateinit var adapter :MarketAdapter
-    val apiManager = ApiManager()
+    lateinit var aboutDataMap : MutableMap<String , CoinAboutItem>
+     val apiManager = ApiManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityMarketBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -38,19 +42,25 @@ class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
 
 
         }
+        getAboutDataFromAssets()
 
     }
-
     override fun onResume() {
         super.onResume()
         initUi()
     }
 
+
+
     private fun initUi(){
+        getAboutDataFromAssets()
         getNewsFromApi()
         getTopCoinsFromApi()
 
     }
+
+
+
 
     private fun getNewsFromApi() {
 
@@ -84,6 +94,7 @@ class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
     }
 
 
+
     private fun getTopCoinsFromApi() {
 
         apiManager.getCoinsList(object : ApiManager.ApiCallback<List<CoinsData.Data>> {
@@ -100,7 +111,6 @@ class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
         })
 
     }
-
     private fun showDataInRecycler(data: List<CoinsData.Data>) {
 
         adapter = MarketAdapter(ArrayList(data), this)
@@ -108,10 +118,33 @@ class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
         binding.layoutWatchlist.recyclerMain.layoutManager = LinearLayoutManager(this)
 
     }
-
     override fun onCoinItemClicked(dataCoin: CoinsData.Data) {
         val intent = Intent(this, CoinActivity::class.java)
-        intent.putExtra("dataToSend", dataCoin)
+        val bundle =Bundle()
+        bundle.putParcelable("bundle1" , dataCoin)
+        bundle.putParcelable("bundle2" , aboutDataMap[dataCoin.coinInfo.name])
+        intent.putExtra("bundle" , bundle)
         startActivity(intent)
+    }
+
+
+    private fun getAboutDataFromAssets() {
+        val fileInString = applicationContext.assets
+            .open("currencyinfo.json")
+            .bufferedReader()
+            .use { it.readText() }
+
+        aboutDataMap = mutableMapOf<String , CoinAboutItem>()
+        val gson = Gson()
+        val dataAboutAll = gson.fromJson(fileInString , CoinAboutData::class.java)
+        dataAboutAll.forEach{
+            aboutDataMap[it.currencyName]= CoinAboutItem(
+                it.info.web,
+                it.info.github,
+                it.info.twt,
+                it.info.desc,
+                it.info.reddit
+            )
+        }
     }
 }
