@@ -31,16 +31,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtDollar"
-        style="@style/CoinBitText.Body1Alternate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="USDT"
-        app:layout_constraintStart_toEndOf="@+id/txtCoinName"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/txtTaghir"
         style="@style/CoinBitText.Body1Alternate"
         android:layout_width="wrap_content"
@@ -58,9 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$3.185"
-        app:layout_constraintBottom_toBottomOf="@+id/txtDollar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtDollar" />
+        app:layout_constraintTop_toTopOf="@+id/txtCoinName" />
 
     <TextView
 

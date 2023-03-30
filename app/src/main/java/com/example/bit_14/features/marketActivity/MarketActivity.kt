@@ -1,15 +1,17 @@
-package com.example.bit_14.features
+package com.example.bit_14.features.marketActivity
 
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bit_14.apiManager.ApiManager
 import com.example.bit_14.apiManager.model.CoinsData
 import com.example.bit_14.databinding.ActivityMarketBinding
-import com.example.bit_14.features.marketActivity.MarketAdapter
+import com.example.bit_14.features.CoinActivity
 
 class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
    lateinit var binding: ActivityMarketBinding
@@ -23,6 +25,20 @@ class MarketActivity : AppCompatActivity(), MarketAdapter.RecyclerCallback {
         binding.layoutToolbar.toolbar.title = "Bit-14"
 
         initUi()
+
+        binding.layoutWatchlist.btnShowMore.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.livecoinwatch.com/"))
+            startActivity(intent)
+        }
+
+        binding.swipeRefreshMaine.setOnRefreshListener {
+            initUi()
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.swipeRefreshMaine.isRefreshing = false
+            }, 2000)
+
+
+        }
 
     }
 
