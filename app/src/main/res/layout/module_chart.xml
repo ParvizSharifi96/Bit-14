@@ -26,7 +26,7 @@
         android:layout_marginTop="4dp"
         android:paddingEnd="4dp"
         android:text="▲"
-        android:textColor="@color/colorGain"
+        android:textColor="@color/tertiaryTextColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_chart_price" />
 
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="+8.1%"
-        android:textColor="@color/colorGain"
+        android:textColor="@color/tertiaryTextColor"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/txt_chart_change1"
         app:layout_constraintTop_toBottomOf="@+id/txt_chart_price" />

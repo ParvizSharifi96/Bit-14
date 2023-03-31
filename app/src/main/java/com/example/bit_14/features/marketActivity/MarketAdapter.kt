@@ -62,7 +62,8 @@ class MarketAdapter(
 
             val marketCap = dataCoin.rAW.uSD.mKTCAP / 1000000000
             val indexDot = marketCap.toString().indexOf('.')
-            binding.txtMarketCap.text ="$ " +  marketCap.toString().substring(0, indexDot + 3) +" B"
+            binding.txtMarketCap.text = "$" + marketCap.toString().substring(0 , indexDot + 2) + " B"
+
 
 
 
